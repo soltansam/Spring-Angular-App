@@ -1,17 +1,32 @@
 package net.javaheap.carApp.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.sql.Date;
-
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Car {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String name;
     private String email;
     private String phone;
     private String model;
     private BigDecimal purchasePrice;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyyon")
     private Date purchaseDate;
     private boolean contact;
+
+
 
     public String getName() {
         return name;
@@ -68,4 +83,8 @@ public class Car {
     public void setContact(boolean contact) {
         this.contact = contact;
     }
+
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 }
